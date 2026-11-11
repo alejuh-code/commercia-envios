@@ -295,6 +295,89 @@ section{margin-bottom:34px;}
 }
 .currency-card p{margin:6px 0 0;font-size:0.85rem;color:var(--muted);}
 
+/* calculator */
+.calc-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  display:grid;
+  gap:16px;
+}
+.calc-field label{
+  display:block;
+  font-size:0.78rem;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.calc-input-wrap{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px 14px;
+  background:var(--bg);
+}
+.calc-input-wrap .prefix{
+  font-family:"Space Grotesk",sans-serif;
+  font-weight:700;
+  color:var(--azul-2);
+}
+.calc-input-wrap input{
+  flex:1;
+  min-width:0;
+  border:none;
+  background:transparent;
+  color:var(--ink);
+  font-family:"Space Grotesk",sans-serif;
+  font-size:1.15rem;
+  font-weight:700;
+  font-variant-numeric: tabular-nums;
+}
+.calc-input-wrap input:focus{outline:none;}
+.calc-input-wrap input:focus-visible{outline:2px solid var(--azul-2);outline-offset:2px;}
+.calc-hint{font-size:0.78rem;color:var(--muted);margin:0;}
+.calc-error{
+  font-size:0.82rem;
+  color:var(--rojo);
+  font-weight:600;
+  margin:0;
+  min-height:1.2em;
+}
+.calc-breakdown{
+  display:grid;
+  gap:8px;
+  padding-top:4px;
+  border-top:1px dashed var(--line);
+}
+.calc-line{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:12px;
+  font-size:0.9rem;
+  color:var(--muted);
+}
+.calc-line span:last-child{
+  font-family:"Space Grotesk",sans-serif;
+  color:var(--ink);
+  font-weight:600;
+  font-variant-numeric: tabular-nums;
+  white-space:nowrap;
+}
+.calc-line.total{
+  font-size:1.05rem;
+  color:var(--ink);
+}
+.calc-line.total span:last-child{
+  color:var(--rojo);
+  font-size:1.2rem;
+  font-weight:700;
+}
+
 /* trust strip */
 .trust{
   display:flex;
@@ -461,6 +544,35 @@ footer{
   </section>
 
   <section>
+    <div class="section-head"><span class="n">04</span><h2>Calculadora de envío en USD</h2></div>
+    <div class="calc-card">
+      <div class="calc-field">
+        <label for="sendAmount">Monto a enviar (USD)</label>
+        <div class="calc-input-wrap">
+          <span class="prefix">$</span>
+          <input type="number" id="sendAmount" inputmode="decimal" min="0" step="1" value="50" aria-describedby="calcError">
+        </div>
+        <p class="calc-hint">Monto mínimo de envío: $50 USD. Comisión de la agencia: 10%.</p>
+        <p class="calc-error" id="calcError"></p>
+      </div>
+      <div class="calc-breakdown">
+        <div class="calc-line">
+          <span>Monto que recibe tu familiar</span>
+          <span id="calcSend">$50.00</span>
+        </div>
+        <div class="calc-line">
+          <span>Comisión (10%)</span>
+          <span id="calcFee">$5.00</span>
+        </div>
+        <div class="calc-line total">
+          <span>Total a pagar en Panamá</span>
+          <span id="calcTotal">$55.00</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <div class="trust">
       <span>Agencia Commercia</span>
       <span>Entrega puerta a puerta</span>
@@ -521,5 +633,41 @@ footer{
   document.getElementById('scrollCoverage').addEventListener('click', function(){
     document.getElementById('coverage').scrollIntoView({behavior:'smooth', block:'start'});
   });
+
+  var MIN_SEND = 50;
+  var FEE_RATE = 0.10;
+  var sendAmount = document.getElementById('sendAmount');
+  var calcSend = document.getElementById('calcSend');
+  var calcFee = document.getElementById('calcFee');
+  var calcTotal = document.getElementById('calcTotal');
+  var calcError = document.getElementById('calcError');
+
+  function fmt(n){
+    return '$' + n.toFixed(2);
+  }
+
+  function updateCalc(){
+    var raw = parseFloat(sendAmount.value);
+    if(isNaN(raw) || raw <= 0){
+      calcError.textContent = 'Ingresa un monto en dólares.';
+      calcSend.textContent = fmt(0);
+      calcFee.textContent = fmt(0);
+      calcTotal.textContent = fmt(0);
+      return;
+    }
+    if(raw < MIN_SEND){
+      calcError.textContent = 'El monto mínimo de envío es de $' + MIN_SEND + ' USD.';
+    } else {
+      calcError.textContent = '';
+    }
+    var fee = raw * FEE_RATE;
+    var total = raw + fee;
+    calcSend.textContent = fmt(raw);
+    calcFee.textContent = fmt(fee);
+    calcTotal.textContent = fmt(total);
+  }
+
+  sendAmount.addEventListener('input', updateCalc);
+  updateCalc();
 })();
 </script>
