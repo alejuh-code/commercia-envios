@@ -1,0 +1,525 @@
+<title>Commercia Envíos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/*
+  Layout concept: a single-column flyer built like a remittance receipt —
+  a bold header strip, a stamped "72 horas" guarantee seal, a route map
+  (Panamá → provincias) as the spine of the page, and a ledger-style
+  currency/coverage table before the contact block.
+*/
+:root{
+  --bg:#f6f3ec;
+  --surface:#ffffff;
+  --ink:#1c2230;
+  --muted:#5b6475;
+  --line:#e2ddd0;
+  --azul:#13335c;
+  --azul-2:#1f4d85;
+  --rojo:#c23b35;
+  --oro:#c99a3d;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13161d;
+    --surface:#1b2029;
+    --ink:#eceff4;
+    --muted:#9aa3b2;
+    --line:#2b313d;
+    --azul:#5e8fc9;
+    --azul-2:#7fb0e6;
+    --rojo:#e2655e;
+    --oro:#e0b45c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13161d;
+  --surface:#1b2029;
+  --ink:#eceff4;
+  --muted:#9aa3b2;
+  --line:#2b313d;
+  --azul:#5e8fc9;
+  --azul-2:#7fb0e6;
+  --rojo:#e2655e;
+  --oro:#e0b45c;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,sans-serif;
+  line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+}
+h1,h2,h3,.display{
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  letter-spacing:-0.01em;
+  text-wrap:balance;
+}
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding-block:28px 48px;
+}
+
+/* top bar */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:18px;
+  border-bottom:2px solid var(--azul);
+  margin-bottom:28px;
+  flex-wrap:wrap;
+}
+.brand{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.brand-mark{
+  font-family:"Space Grotesk",sans-serif;
+  font-weight:700;
+  font-size:1.5rem;
+  color:var(--azul-2);
+}
+.brand-tag{
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.badge-72{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--azul);
+  color:#fff;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:0.8rem;
+  font-weight:600;
+  white-space:nowrap;
+}
+.badge-72 .num{font-family:"Space Grotesk",sans-serif;font-size:1rem;}
+
+/* hero */
+.hero{
+  display:grid;
+  gap:14px;
+  margin-bottom:32px;
+}
+.eyebrow{
+  font-size:0.78rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--rojo);
+  font-weight:600;
+}
+.hero h1{
+  font-size:clamp(1.9rem, 5vw, 2.7rem);
+  line-height:1.08;
+  margin:0;
+  color:var(--ink);
+}
+.hero h1 span{color:var(--azul-2);}
+.hero p{
+  color:var(--muted);
+  font-size:1.02rem;
+  max-width:52ch;
+  margin:0;
+}
+.cta-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:0.95rem;
+  border:1px solid transparent;
+  cursor:pointer;
+  font-family:inherit;
+}
+.btn-primary{
+  background:var(--rojo);
+  color:#fff;
+}
+.btn-ghost{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--ink);
+}
+.btn:focus-visible{outline:2px solid var(--azul-2);outline-offset:2px;}
+
+/* route strip */
+.route{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 18px;
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+.route-stop{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+.route-stop .city{font-weight:700;font-size:1rem;}
+.route-stop .ctx{font-size:0.78rem;color:var(--muted);}
+.route-line{
+  flex:1;
+  min-width:40px;
+  height:2px;
+  background:repeating-linear-gradient(90deg, var(--oro) 0 8px, transparent 8px 14px);
+  position:relative;
+}
+.route-line::after{
+  content:"✈";
+  position:absolute;
+  right:0;
+  top:-11px;
+  color:var(--oro);
+  font-size:0.9rem;
+}
+
+/* section titles */
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  margin-bottom:14px;
+}
+.section-head .n{
+  font-family:"Space Grotesk",sans-serif;
+  color:var(--line);
+  font-size:1.6rem;
+  font-weight:700;
+}
+.section-head h2{
+  font-size:1.25rem;
+  margin:0;
+}
+section{margin-bottom:34px;}
+
+/* steps */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.step{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px 14px;
+  min-width:0;
+}
+.step .k{
+  font-family:"Space Grotesk",sans-serif;
+  color:var(--azul-2);
+  font-weight:700;
+  font-size:0.85rem;
+  margin-bottom:6px;
+  display:block;
+}
+.step p{margin:0;font-size:0.88rem;color:var(--muted);}
+
+/* coverage */
+.coverage{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:18px;
+}
+.coverage-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-block:10px;
+  border-bottom:1px solid var(--line);
+  gap:12px;
+}
+.coverage-row:last-child{border-bottom:none;}
+.coverage-row .province{font-weight:600;}
+.coverage-row .time{
+  font-family:"Space Grotesk",sans-serif;
+  color:var(--azul-2);
+  font-size:0.85rem;
+  white-space:nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* currency */
+.currency-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.currency-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  min-width:0;
+}
+.currency-card .tag{
+  display:inline-block;
+  font-size:0.72rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--oro);
+  font-weight:700;
+  margin-bottom:6px;
+}
+.currency-card .amount{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:1.3rem;
+  font-weight:700;
+}
+.currency-card p{margin:6px 0 0;font-size:0.85rem;color:var(--muted);}
+
+/* trust strip */
+.trust{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.trust span{
+  font-size:0.8rem;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 12px;
+}
+
+/* contact block */
+.contact{
+  background:var(--azul);
+  color:#fff;
+  border-radius:16px;
+  padding:26px 22px;
+  display:grid;
+  gap:16px;
+}
+.contact h2{color:#fff;margin:0;font-size:1.3rem;}
+.contact p{color:#d8e2f0;margin:0;font-size:0.92rem;}
+.phone-block{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:12px;
+  padding:14px 16px;
+  flex-wrap:wrap;
+}
+.phone-number{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:1.35rem;
+  font-weight:700;
+  letter-spacing:0.02em;
+  user-select:all;
+  font-variant-numeric: tabular-nums;
+}
+.copy-btn{
+  background:#fff;
+  color:var(--azul);
+  border:none;
+  border-radius:8px;
+  padding:9px 14px;
+  font-weight:700;
+  font-size:0.82rem;
+  cursor:pointer;
+  font-family:inherit;
+  white-space:nowrap;
+}
+.copy-btn[data-copied="true"]{background:var(--oro);color:#1c2230;}
+.contact .agency-line{
+  font-size:0.8rem;
+  color:#b9c7dd;
+  border-top:1px solid rgba(255,255,255,0.2);
+  padding-top:12px;
+}
+
+footer{
+  margin-top:28px;
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--muted);
+}
+
+@media (max-width:520px){
+  .steps{grid-template-columns:1fr;}
+  .currency-grid{grid-template-columns:1fr;}
+  .route{justify-content:center;}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <span class="brand-mark">Commercia</span>
+      <span class="brand-tag">Agencia de envíos</span>
+    </div>
+    <div class="badge-72"><span class="num">72h</span> entrega garantizada</div>
+  </div>
+
+  <section class="hero">
+    <span class="eyebrow">Panamá → Cuba</span>
+    <h1>Envía dinero a Cuba y llega en <span>máximo 72 horas</span></h1>
+    <p>Entregas en La Habana, Artemisa y Mayabeque. Tu familia recibe el pago en USD o en Moneda Nacional, como más le convenga.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary" id="scrollContact">Enviar dinero ahora</button>
+      <button class="btn btn-ghost" id="scrollCoverage">Ver cobertura</button>
+    </div>
+  </section>
+
+  <div class="route">
+    <div class="route-stop">
+      <span class="city">Panamá</span>
+      <span class="ctx">Origen del envío</span>
+    </div>
+    <div class="route-line"></div>
+    <div class="route-stop">
+      <span class="city">La Habana · Artemisa · Mayabeque</span>
+      <span class="ctx">Entrega en 72h o menos</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head"><span class="n">01</span><h2>Cómo funciona</h2></div>
+    <div class="steps">
+      <div class="step">
+        <span class="k">Contacta</span>
+        <p>Escribe o llama al número de la agencia y confirma el monto a enviar.</p>
+      </div>
+      <div class="step">
+        <span class="k">Elige moneda</span>
+        <p>Decide si la entrega será en USD o en Moneda Nacional (CUP).</p>
+      </div>
+      <div class="step">
+        <span class="k">Recibe en 72h</span>
+        <p>Tu beneficiario recibe el dinero en su provincia dentro de las 72 horas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="coverage">
+    <div class="section-head"><span class="n">02</span><h2>Cobertura de entrega</h2></div>
+    <div class="coverage">
+      <div class="coverage-row">
+        <span class="province">La Habana</span>
+        <span class="time">hasta 72h</span>
+      </div>
+      <div class="coverage-row">
+        <span class="province">Artemisa</span>
+        <span class="time">hasta 72h</span>
+      </div>
+      <div class="coverage-row">
+        <span class="province">Mayabeque</span>
+        <span class="time">hasta 72h</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="n">03</span><h2>Moneda de entrega</h2></div>
+    <div class="currency-grid">
+      <div class="currency-card">
+        <span class="tag">Opción 1</span>
+        <div class="amount">USD</div>
+        <p>Entrega en dólares americanos en efectivo.</p>
+      </div>
+      <div class="currency-card">
+        <span class="tag">Opción 2</span>
+        <div class="amount">CUP</div>
+        <p>Entrega en Moneda Nacional cubana.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="trust">
+      <span>Agencia Commercia</span>
+      <span>Entrega puerta a puerta</span>
+      <span>Confirmación de entrega</span>
+      <span>Atención directa por teléfono</span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2>Haz tu envío hoy</h2>
+      <p>Contáctanos para confirmar monto, moneda de entrega y dirección del beneficiario.</p>
+      <div class="phone-block">
+        <span class="phone-number" id="phoneNumber">+507 6903-0128</span>
+        <button class="copy-btn" id="copyBtn" type="button">Copiar número</button>
+      </div>
+      <div class="agency-line">Agencia Commercia · Envíos Panamá – Cuba</div>
+    </div>
+  </section>
+
+  <footer>Commercia · Panamá – Cuba · La Habana, Artemisa y Mayabeque</footer>
+</div>
+
+<script>
+(function(){
+  var copyBtn = document.getElementById('copyBtn');
+  var phoneNumber = document.getElementById('phoneNumber');
+  copyBtn.addEventListener('click', function(){
+    var text = phoneNumber.textContent.trim();
+    function markCopied(){
+      copyBtn.textContent = 'Copiado';
+      copyBtn.setAttribute('data-copied','true');
+      setTimeout(function(){
+        copyBtn.textContent = 'Copiar número';
+        copyBtn.removeAttribute('data-copied');
+      }, 1800);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(markCopied).catch(function(){
+        selectFallback();
+      });
+    } else {
+      selectFallback();
+    }
+    function selectFallback(){
+      var range = document.createRange();
+      range.selectNodeContents(phoneNumber);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      markCopied();
+    }
+  });
+
+  document.getElementById('scrollContact').addEventListener('click', function(){
+    document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.getElementById('scrollCoverage').addEventListener('click', function(){
+    document.getElementById('coverage').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
+</script>
