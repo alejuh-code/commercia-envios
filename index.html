@@ -131,7 +131,7 @@ h1,h2,h3,.display{
 .hero p{
   color:var(--muted);
   font-size:1.02rem;
-  max-width:52ch;
+  max-width:56ch;
   margin:0;
 }
 .cta-row{
@@ -172,7 +172,7 @@ h1,h2,h3,.display{
   border:1px solid var(--line);
   border-radius:14px;
   padding:16px 18px;
-  margin-bottom:32px;
+  margin-bottom:10px;
   flex-wrap:wrap;
 }
 .route-stop{
@@ -198,6 +198,11 @@ h1,h2,h3,.display{
   color:var(--oro);
   font-size:0.9rem;
 }
+.route-note{
+  font-size:0.8rem;
+  color:var(--muted);
+  margin:0 0 32px;
+}
 
 /* section titles */
 .section-head{
@@ -217,6 +222,51 @@ h1,h2,h3,.display{
   margin:0;
 }
 section{margin-bottom:34px;}
+
+/* about */
+.about-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  display:grid;
+  gap:12px;
+}
+.about-card p{margin:0;color:var(--muted);font-size:0.95rem;}
+.about-card p strong{color:var(--ink);}
+.about-meta{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  font-size:0.8rem;
+  color:var(--azul-2);
+  font-weight:600;
+}
+
+/* services grid */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.service-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  display:grid;
+  gap:6px;
+  min-width:0;
+}
+.service-card .icon{font-size:1.25rem;}
+.service-card h3{margin:0;font-size:0.95rem;}
+.service-card p{margin:0;font-size:0.84rem;color:var(--muted);}
+.service-card .price{
+  font-family:"Space Grotesk",sans-serif;
+  font-weight:700;
+  color:var(--oro);
+  font-size:0.84rem;
+}
 
 /* steps */
 .steps{
@@ -241,6 +291,24 @@ section{margin-bottom:34px;}
 }
 .step p{margin:0;font-size:0.88rem;color:var(--muted);}
 
+/* workflow list */
+.workflow-list{
+  display:grid;
+  gap:10px;
+}
+.workflow-item{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px 16px;
+}
+.workflow-item .icon{font-size:1.1rem;line-height:1.4;}
+.workflow-item strong{display:block;font-size:0.92rem;margin-bottom:2px;}
+.workflow-item p{margin:0;font-size:0.86rem;color:var(--muted);}
+
 /* coverage */
 .coverage{
   background:var(--surface);
@@ -248,22 +316,37 @@ section{margin-bottom:34px;}
   border-radius:14px;
   padding:18px;
 }
+.coverage-group{margin-bottom:0;}
+.coverage-group + .coverage-group{
+  border-top:1px solid var(--line);
+  margin-top:14px;
+  padding-top:14px;
+}
+.coverage-group-title{
+  font-size:0.76rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--azul-2);
+  font-weight:700;
+  margin-bottom:8px;
+}
 .coverage-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding-block:10px;
+  padding-block:8px;
   border-bottom:1px solid var(--line);
   gap:12px;
 }
-.coverage-row:last-child{border-bottom:none;}
-.coverage-row .province{font-weight:600;}
+.coverage-group .coverage-row:last-child{border-bottom:none;}
+.coverage-row .province{font-weight:600;font-size:0.95rem;}
 .coverage-row .time{
   font-family:"Space Grotesk",sans-serif;
   color:var(--azul-2);
-  font-size:0.85rem;
+  font-size:0.84rem;
   white-space:nowrap;
   font-variant-numeric: tabular-nums;
+  text-align:right;
 }
 
 /* currency */
@@ -378,6 +461,30 @@ section{margin-bottom:34px;}
   font-weight:700;
 }
 
+/* audience */
+.audience-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.audience-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  min-width:0;
+}
+.audience-card .tag{
+  display:block;
+  font-size:0.72rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--rojo);
+  font-weight:700;
+  margin-bottom:6px;
+}
+.audience-card p{margin:0;font-size:0.88rem;color:var(--muted);}
+
 /* trust strip */
 .trust{
   display:flex;
@@ -436,6 +543,19 @@ section{margin-bottom:34px;}
   white-space:nowrap;
 }
 .copy-btn[data-copied="true"]{background:var(--oro);color:#1c2230;}
+.contact-meta{
+  display:grid;
+  gap:8px;
+}
+.meta-row{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  font-size:0.88rem;
+  color:#d8e2f0;
+}
+.meta-row .icon{flex-shrink:0;}
+.meta-row .value{user-select:all;min-width:0;}
 .contact .agency-line{
   font-size:0.8rem;
   color:#b9c7dd;
@@ -453,6 +573,8 @@ footer{
 @media (max-width:520px){
   .steps{grid-template-columns:1fr;}
   .currency-grid{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .audience-grid{grid-template-columns:1fr;}
   .route{justify-content:center;}
 }
 </style>
@@ -464,18 +586,18 @@ footer{
   <div class="topbar">
     <div class="brand">
       <span class="brand-mark">Commercia</span>
-      <span class="brand-tag">Agencia de envíos</span>
+      <span class="brand-tag">Panamá · Cuba</span>
     </div>
-    <div class="badge-72"><span class="num">72h</span> entrega garantizada</div>
+    <div class="badge-72"><span class="num">72h</span> remesas</div>
   </div>
 
   <section class="hero">
-    <span class="eyebrow">Panamá → Cuba</span>
-    <h1>Envía dinero a Cuba y llega en <span>máximo 72 horas</span></h1>
-    <p>Entregas en La Habana, Artemisa y Mayabeque. Tu familia recibe el pago en USD o en Moneda Nacional, como más le convenga.</p>
+    <span class="eyebrow">Commercia SA · de Panamá a tu familia y tu negocio en Cuba</span>
+    <h1>Dinero, paquetería y <span>productos para Cuba</span></h1>
+    <p>Remesas en USD o Moneda Nacional con entrega en máximo 72 horas, paquetería marítima y aérea, productos con envío incluido y carga comercial — con tarifas claras, para las 15 provincias de Cuba.</p>
     <div class="cta-row">
       <button class="btn btn-primary" id="scrollContact">Enviar dinero ahora</button>
-      <button class="btn btn-ghost" id="scrollCoverage">Ver cobertura</button>
+      <button class="btn btn-ghost" id="scrollServices">Ver todos los servicios</button>
     </div>
   </section>
 
@@ -487,12 +609,53 @@ footer{
     <div class="route-line"></div>
     <div class="route-stop">
       <span class="city">La Habana · Artemisa · Mayabeque</span>
-      <span class="ctx">Entrega en 72h o menos</span>
+      <span class="ctx">Remesas en efectivo, 72h o menos</span>
     </div>
   </div>
+  <p class="route-note">📦 Paquetería, productos y carga comercial llegan a las 15 provincias de Cuba.</p>
 
   <section>
-    <div class="section-head"><span class="n">01</span><h2>Cómo funciona</h2></div>
+    <div class="section-head"><span class="n">01</span><h2>Sobre nosotros</h2></div>
+    <div class="about-card">
+      <p>En <strong>Commercia SA</strong> conectamos a las familias y los negocios cubanos con lo que necesitan. Estamos en Ciudad de Panamá, a un paso de la Zona Libre de Colón, y enviamos a las 15 provincias de Cuba.</p>
+      <p>Nacimos con una idea sencilla: que mandar algo a Cuba sea claro, justo y sin sorpresas. Nuestros productos llegan puestos en Cuba, con el envío, los aranceles y la entrega ya incluidos en el precio.</p>
+      <div class="about-meta">
+        <span>📍 Ciudad de Panamá</span>
+        <span>🇨🇺 15 provincias de Cuba</span>
+        <span>⚖️ Paquetería desde $1.59/lb</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-head"><span class="n">02</span><h2>Qué hacemos</h2></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="icon">🏍️</span>
+        <h3>Productos con envío incluido</h3>
+        <p>Motos eléctricas y de gasolina, triciclos de carga, laptops, plantas eléctricas y más, puestos en Cuba.</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">🚢</span>
+        <h3>Paquetería marítima y aérea</h3>
+        <p>Envíos a tu familia, cotizados por libra.</p>
+        <span class="price">Desde $1.59/lb marítimo · $2.49/lb aéreo</span>
+      </div>
+      <div class="service-card">
+        <span class="icon">📦</span>
+        <h3>Carga comercial</h3>
+        <p>Para mipymes y TCP: envíos por volumen y precios mayoristas para revendedores.</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">💵</span>
+        <h3>Recargas, tarjetas y remesas</h3>
+        <p>Recargas telefónicas, tarjetas de regalo y remesas en USD o Moneda Nacional a Cuba.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="n">03</span><h2>Cómo funciona el envío de dinero</h2></div>
     <div class="steps">
       <div class="step">
         <span class="k">Contacta</span>
@@ -509,26 +672,63 @@ footer{
     </div>
   </section>
 
+  <section>
+    <div class="section-head"><span class="n">04</span><h2>Cómo trabajamos</h2></div>
+    <div class="workflow-list">
+      <div class="workflow-item">
+        <span class="icon">🗓️</span>
+        <div>
+          <strong>Cierre de carga semanal</strong>
+          <p>Cerramos carga todas las semanas, los jueves y viernes.</p>
+        </div>
+      </div>
+      <div class="workflow-item">
+        <span class="icon">📞</span>
+        <div>
+          <strong>Entrega coordinada</strong>
+          <p>En Cuba entregamos en un punto de cada provincia. Antes de la entrega te llamamos para coordinar dónde la recibes.</p>
+        </div>
+      </div>
+      <div class="workflow-item">
+        <span class="icon">₮</span>
+        <div>
+          <strong>Pagos flexibles</strong>
+          <p>Aceptamos los métodos de pago habituales y también criptomonedas (USDT, USDC y BTC).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="coverage">
-    <div class="section-head"><span class="n">02</span><h2>Cobertura de entrega</h2></div>
+    <div class="section-head"><span class="n">05</span><h2>Cobertura de entrega</h2></div>
     <div class="coverage">
-      <div class="coverage-row">
-        <span class="province">La Habana</span>
-        <span class="time">hasta 72h</span>
+      <div class="coverage-group">
+        <div class="coverage-group-title">Remesas en efectivo</div>
+        <div class="coverage-row">
+          <span class="province">La Habana</span>
+          <span class="time">hasta 72h</span>
+        </div>
+        <div class="coverage-row">
+          <span class="province">Artemisa</span>
+          <span class="time">hasta 72h</span>
+        </div>
+        <div class="coverage-row">
+          <span class="province">Mayabeque</span>
+          <span class="time">hasta 72h</span>
+        </div>
       </div>
-      <div class="coverage-row">
-        <span class="province">Artemisa</span>
-        <span class="time">hasta 72h</span>
-      </div>
-      <div class="coverage-row">
-        <span class="province">Mayabeque</span>
-        <span class="time">hasta 72h</span>
+      <div class="coverage-group">
+        <div class="coverage-group-title">Paquetería, productos y carga comercial</div>
+        <div class="coverage-row">
+          <span class="province">Las 15 provincias de Cuba</span>
+          <span class="time">cierre semanal jue · vie</span>
+        </div>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="section-head"><span class="n">03</span><h2>Moneda de entrega</h2></div>
+    <div class="section-head"><span class="n">06</span><h2>Moneda de entrega para remesas</h2></div>
     <div class="currency-grid">
       <div class="currency-card">
         <span class="tag">Opción 1</span>
@@ -544,7 +744,7 @@ footer{
   </section>
 
   <section>
-    <div class="section-head"><span class="n">04</span><h2>Calculadora de envío en USD</h2></div>
+    <div class="section-head"><span class="n">07</span><h2>Calculadora de envío en USD</h2></div>
     <div class="calc-card">
       <div class="calc-field">
         <label for="sendAmount">Monto a enviar (USD)</label>
@@ -573,27 +773,52 @@ footer{
   </section>
 
   <section>
+    <div class="section-head"><span class="n">08</span><h2>A quién servimos</h2></div>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <span class="tag">Familias</span>
+        <p>Cubanos que viven en Estados Unidos, España, Europa, Panamá y Latinoamérica y quieren ayudar a los suyos.</p>
+      </div>
+      <div class="audience-card">
+        <span class="tag">Negocios</span>
+        <p>Emprendedores en Cuba que necesitan un proveedor confiable para hacer crecer su negocio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <div class="trust">
-      <span>Agencia Commercia</span>
-      <span>Entrega puerta a puerta</span>
-      <span>Confirmación de entrega</span>
-      <span>Atención directa por teléfono</span>
+      <span>Commercia SA</span>
+      <span>Entrega coordinada por llamada</span>
+      <span>Pago en cripto (USDT, USDC, BTC)</span>
+      <span>Cierre de carga jueves y viernes</span>
+      <span>Tarifas por libra transparentes</span>
     </div>
   </section>
 
   <section id="contact">
     <div class="contact">
-      <h2>Haz tu envío hoy</h2>
-      <p>Contáctanos para confirmar monto, moneda de entrega y dirección del beneficiario.</p>
+      <h2>Hablemos</h2>
+      <p>Contáctanos para confirmar monto, moneda de entrega, paquetería o carga comercial.</p>
       <div class="phone-block">
         <span class="phone-number" id="phoneNumber">+507 6903-0128</span>
         <button class="copy-btn" id="copyBtn" type="button">Copiar número</button>
       </div>
-      <div class="agency-line">Agencia Commercia · Envíos Panamá – Cuba</div>
+      <div class="contact-meta">
+        <div class="meta-row">
+          <span class="icon">📍</span>
+          <span class="value">Calle Eusebio A. Morales, PH San Antonio, El Cangrejo, Ciudad de Panamá</span>
+        </div>
+        <div class="meta-row">
+          <span class="icon">✉️</span>
+          <span class="value">admin@fuenteslogistics.net</span>
+        </div>
+      </div>
+      <div class="agency-line">Commercia SA · de Panamá a tu familia en Cuba.</div>
     </div>
   </section>
 
-  <footer>Commercia · Panamá – Cuba · La Habana, Artemisa y Mayabeque</footer>
+  <footer>Commercia SA · Panamá – Cuba · Remesas, paquetería y productos a las 15 provincias</footer>
 </div>
 
 <script>
@@ -630,8 +855,8 @@ footer{
   document.getElementById('scrollContact').addEventListener('click', function(){
     document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'start'});
   });
-  document.getElementById('scrollCoverage').addEventListener('click', function(){
-    document.getElementById('coverage').scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('scrollServices').addEventListener('click', function(){
+    document.getElementById('services').scrollIntoView({behavior:'smooth', block:'start'});
   });
 
   var MIN_SEND = 50;
